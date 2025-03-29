@@ -1,0 +1,31 @@
+// launch.json - Configures debugging setup for the TMS570 LaunchPad
+// Defines how VS Code connects to the hardware for debugging
+// Uses TI's ARM GDB for debugging the target
+// Creator: Max Kulick
+
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "TMS570 Debug",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceRoot}/build/TMS570_FREERTOS.out",
+            "args": [],
+            "stopAtEntry": true,
+            "cwd": "${workspaceRoot}",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "miDebuggerPath": "C:/ti/ccs2010/ccs/tools/compiler/ti-cgt-armllvm_4.0.2.LTS/bin/tiarmgdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ],
+            "preLaunchTask": "Build"
+        }
+    ]
+}
