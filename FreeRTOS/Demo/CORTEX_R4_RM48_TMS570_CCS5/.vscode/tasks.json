@@ -1,43 +1,12 @@
-// tasks.json - Defines VS Code tasks for building and flashing the TMS570 project
-// Includes tasks for creating build directory, configuring CMake, building, cleaning, and flashing
-// Press Ctrl+Shift+B to execute the default (Build) task
-// Creator: Max Kulick
-
 {
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "Create Build Directory",
+            "label": "Build FreeRTOS",
             "type": "shell",
-            "command": "mkdir -p build"
-        },
-        {
-            "label": "Configure CMake",
-            "type": "shell",
-            "command": "cd build && cmake .. -G \"MinGW Makefiles\"",
-            "dependsOn": ["Create Build Directory"]
-        },
-        {
-            "label": "Build",
-            "type": "shell",
-            "command": "cd build && cmake --build .",
-            "dependsOn": ["Configure CMake"],
-            "group": {
-                "kind": "build",
-                "isDefault": true
-            },
-            "problemMatcher": ["$msCompile"]
-        },
-        {
-            "label": "Clean",
-            "type": "shell",
-            "command": "rm -rf build"
-        },
-        {
-            "label": "Flash",
-            "type": "shell",
-            "command": "DSLite flash --config=TMS570LS3137.ccxml ${workspaceRoot}/build/TMS570_FREERTOS.out",
-            "dependsOn": ["Build"]
+            "command": "cmake --build build",
+            "group": "build",
+            "problemMatcher": ["$gcc"]
         }
     ]
 }

@@ -147,9 +147,12 @@ static const t_isrFuncPTR s_vim_init[] =
 
 /* Startup Routine */
 
-#pragma INTERRUPT(_c_int00, RESET)
 
-void _c_int00()
+
+
+#pragma INTERRUPT(custom_startup, RESET)
+
+void custom_startup()
 {
     /* Enable VFP Unit */
 	_coreEnableVfp();

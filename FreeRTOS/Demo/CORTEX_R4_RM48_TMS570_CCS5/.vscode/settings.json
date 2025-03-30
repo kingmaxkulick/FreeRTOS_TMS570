@@ -1,12 +1,6 @@
-// settings.json - VS Code workspace settings for TMS570 development
-// Configures file associations and editor behavior
-// Helps VS Code properly handle project-specific file types
-// Creator: Max Kulick
-
 {
-    "files.associations": {
-        "*.cmd": "tcl",
-        "FreeRTOSConfig.h": "c"
-    },
+    "cmake.configureOnOpen": true,
+    "cmake.buildDirectory": "${workspaceFolder}/build",
+    "cortex-debug.armToolchainPath": "C:/ti/ccs2010/ccs/tools/compiler/ti-cgt-arm_20.2.5.LTS/bin",
     "C_Cpp.default.configurationProvider": "ms-vscode.cmake-tools"
-}
+  }
