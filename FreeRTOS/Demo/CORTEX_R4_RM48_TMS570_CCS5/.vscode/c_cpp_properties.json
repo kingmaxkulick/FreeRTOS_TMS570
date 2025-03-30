@@ -1,29 +1,23 @@
-// c_cpp_properties.json - Configures VS Code's C/C++ IntelliSense
-// Defines include paths, compiler settings, and language standards
-// Helps VS Code provide accurate code completion and error checking
-// Creator: Max Kulick
-
 {
     "configurations": [
         {
             "name": "TMS570",
             "includePath": [
                 "${workspaceFolder}/**",
-                "${workspaceFolder}/Library",
-                "${workspaceFolder}/startup",
-                "${workspaceFolder}/FreeRTOS/include",
-                "${workspaceFolder}/FreeRTOS/portable/CCS/ARM_Cortex-R4",
-                "${workspaceFolder}/Common-Demo-Source/include",
-                "C:/ti/ccs2010/ccs/tools/compiler/ti-cgt-armllvm_4.0.2.LTS/include"
+                "C:/ti/ccs2010/ccs/tools/compiler/ti-cgt-arm_20.2.5.LTS/include",
+                "C:/ti/Hercules/HALCoGen/include",
+                "${workspaceFolder}/../../Source/include",
+                "${workspaceFolder}/../../Source/portable/CCS/ARM_Cortex-R4"
             ],
             "defines": [
-                "__TI_COMPILER_VERSION__",
-                "__FPU_PRESENT=1"
+                "PART_TMS570LS3137",
+                "TMS570LS31x",
+                "configUSE_PREEMPTION=1"
             ],
-            "compilerPath": "C:/ti/ccs2010/ccs/tools/compiler/ti-cgt-armllvm_4.0.2.LTS/bin/tiarmclang",
+            "compilerPath": "C:/ti/ccs2010/ccs/tools/compiler/ti-cgt-arm_20.2.5.LTS/bin/armcl.exe",
             "cStandard": "c99",
-            "cppStandard": "c++11",
-            "intelliSenseMode": "clang-arm"
+            "cppStandard": "c++17",
+            "intelliSenseMode": "gcc-arm"
         }
     ],
     "version": 4
