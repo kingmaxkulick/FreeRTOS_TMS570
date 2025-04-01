@@ -16,8 +16,8 @@ set(CMAKE_TRY_COMPILE_TARGET_TYPE STATIC_LIBRARY)
 set(CMAKE_C_COMPILER_WORKS 1)
 set(CMAKE_ASM_COMPILER_WORKS 1)
 
-# TI-specific flags
-set(COMMON_FLAGS "--abi=eabi -mv7R4 --code_state=32 --endian=big -me --float_support=VFPv3D16")
+# TI-specific flags (updated to little-endian)
+set(COMMON_FLAGS "--abi=eabi -mv7R4 --code_state=32 --endian=little -me --float_support=VFPv3D16")
 set(CMAKE_C_FLAGS_INIT "${COMMON_FLAGS} --include_path=\"${TOOLCHAIN_ROOT}/include\"")
 set(CMAKE_ASM_FLAGS_INIT "${COMMON_FLAGS}")
 set(CMAKE_EXE_LINKER_FLAGS_INIT "--reread_libs --rom_model --heap_size=0 --stack_size=0")
@@ -27,3 +27,7 @@ set(TI_INCLUDE_DIRS
     "${TOOLCHAIN_ROOT}/include"
     "C:/ti/Hercules/HALCoGen/include"  # Add if using HALCoGen
 )
+
+# Ensure consistent endianness for all build types
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} --endian=little")
+set(CMAKE_ASM_FLAGS "${CMAKE_ASM_FLAGS} --endian=little")

@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.15)
 project(TMS570_FREERTOS C ASM)
 
-# Set compiler flags
+# Set compiler flags (consistent little-endian)
 set(CMAKE_C_FLAGS "--little_endian --silicon_version=7R4 -g --diag_warning=225 --float_support=VFPv3D16")
 set(CMAKE_ASM_FLAGS "${CMAKE_C_FLAGS}")
 
@@ -13,7 +13,7 @@ include_directories(
     ${CMAKE_CURRENT_SOURCE_DIR}/../../Source/include
     ${CMAKE_CURRENT_SOURCE_DIR}/../../Source/portable/CCS/ARM_Cortex-R4
     ${CMAKE_CURRENT_SOURCE_DIR}/../Common/include
-    ${TI_INCLUDE_DIRS}  # From toolchain file
+    ${TI_INCLUDE_DIRS}
 )
 
 # Source files
@@ -56,12 +56,13 @@ set(SOURCES
 # Create executable
 add_executable(${PROJECT_NAME}.out ${SOURCES})
 
-# Linker configuration
+# Linker configuration with linker script
+set(LINKER_SCRIPT "${CMAKE_CURRENT_SOURCE_DIR}/TMS570.cmd")
 set_target_properties(${PROJECT_NAME}.out PROPERTIES
-    LINK_FLAGS "--library=${TOOLCHAIN_ROOT}/lib/rtsv7R4_T_le_v3D16_eabi.lib --entry_point=_c_int00 --map_file=${PROJECT_NAME}.map"
+    LINK_FLAGS "--library=${TOOLCHAIN_ROOT}/lib/rtsv7R4_T_le_v3D16_eabi.lib -l${LINKER_SCRIPT} --entry_point=_c_int00 --map_file=${PROJECT_NAME}.map"
 )
 
-# Only attempt to generate HEX if hex470 exists
+# HEX generation
 if(EXISTS "${TOOLCHAIN_ROOT}/bin/hex470")
     add_custom_command(TARGET ${PROJECT_NAME}.out POST_BUILD
         COMMAND ${TOOLCHAIN_ROOT}/bin/hex470 -o ${PROJECT_NAME}.hex ${PROJECT_NAME}.out
@@ -71,6 +72,5 @@ else()
     message(WARNING "hex470 not found - skipping HEX generation")
 endif()
 
-# For debugging purposes
 message(STATUS "TOOLCHAIN_ROOT: ${TOOLCHAIN_ROOT}")
 message(STATUS "TI_INCLUDE_DIRS: ${TI_INCLUDE_DIRS}")
